@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const carSchema = new mongoose.Schema(
   {
@@ -21,36 +21,29 @@ const carSchema = new mongoose.Schema(
     },
 
     bodyType: {
-  type: String,
-  enum: [
-    "Hatchback",
-    "Sedan",
-    "SUV",
-    "Compact SUV",
-    "MPV",
-    "EV",
-  ],
-  required: true,
-},
+      type: String,
+      enum: ['Hatchback', 'Sedan', 'SUV', 'Compact SUV', 'MPV', 'EV'],
+      required: true,
+    },
 
-price: {
-  exShowroom: {
-    type: Number,
-    required: true,
-    min: 1,
-  },
-},
+    price: {
+      exShowroom: {
+        type: Number,
+        required: true,
+        min: 1,
+      },
+    },
 
     specifications: {
       fuelType: {
         type: String,
-        enum: ["Petrol", "Diesel", "EV", "CNG", "Hybrid"],
+        enum: ['Petrol', 'Diesel', 'EV', 'CNG', 'Hybrid'],
         required: true,
       },
 
       transmission: {
         type: String,
-        enum: ["Manual", "Automatic"],
+        enum: ['Manual', 'Automatic'],
         required: true,
       },
 
@@ -83,18 +76,16 @@ price: {
       },
     },
 
-    features: [
-      {
-        type: String,
-      },
-    ],
+    features: {
+      type: [String],
+      default: [],
+    },
 
-    suitableFor: [
-      {
-        type: String,
-        enum: ["city", "family", "highway", "offroad"],
-      },
-    ],
+    suitableFor: {
+      type: [String],
+      enum: ['city', 'family', 'highway', 'offroad'],
+      default: [],
+    },
 
     userRating: {
       type: Number,
@@ -108,26 +99,29 @@ price: {
   }
 );
 
-carSchema.index({
-  make: 1,
-  model: 1,
-});
-
-carSchema.index({
-  "price.exShowroom": 1,
-});
-
-carSchema.index({
-  "specifications.fuelType": 1,
-});
-
-carSchema.index({
-  "safety.rating": -1,
-});
-
-const Car = mongoose.model(
-  "Car",
-  carSchema
+carSchema.index(
+  {
+    make: 1,
+    model: 1,
+    variant: 1,
+  },
+  {
+    unique: true,
+  }
 );
+
+carSchema.index({
+  'price.exShowroom': 1,
+});
+
+carSchema.index({
+  'specifications.fuelType': 1,
+});
+
+carSchema.index({
+  'safety.rating': -1,
+});
+
+const Car = mongoose.model('Car', carSchema);
 
 module.exports = Car;

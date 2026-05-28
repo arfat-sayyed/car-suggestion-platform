@@ -66,7 +66,7 @@ function PreferenceForm() {
     if (loading) {
       return;
     }
-    if (!formData.budget) {
+    if (!formData.budget || Number(formData.budget) <= 0) {
       alert('Please enter budget');
 
       return;
@@ -76,7 +76,7 @@ function PreferenceForm() {
     const payload = {
       ...formData,
       budget: Number(formData.budget),
-      familySize: Number(formData.familySize),
+      familySize: formData.familySize ? Number(formData.familySize) : null,
     };
 
     return getRecommendations(payload)
@@ -98,32 +98,32 @@ function PreferenceForm() {
   };
 
   return (
-    <section className="relative py-12">
+    <section className="relative">
       <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-blue-200/30 blur-[120px]" />
 
       <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-cyan-200/30 blur-[120px]" />
 
       <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[40px] border border-white/30 bg-white/75 p-10 shadow-[0_20px_80px_rgba(15,23,42,0.12)] backdrop-blur-xl">
         <div className="text-center">
-          <span className="rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700">
-            Personalized Car Match 🚗
-          </span>
+          <div className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50/80 px-5 py-2 text-sm font-semibold text-blue-700 shadow-sm">
+           🚗 Smart Car Recommendation Platform
+          </div>
 
-          <h2 className="mt-5 text-5xl font-bold tracking-tight text-slate-900">
+          <h2 className="mt-6 text-5xl font-black tracking-tight text-slate-900 md:text-6xl">
             Find Your
-            <span className="bg-linear-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-blue-600 via-cyan-500 to-blue-700 bg-clip-text text-transparent">
               {' '}
               Perfect Car
             </span>
           </h2>
 
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-500">
-            Tell us your lifestyle, budget, and priorities — we’ll shortlist the
-            best cars for you instantly.
+          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-500">
+            Tell us your budget, lifestyle, and preferences — we’ll instantly
+            shortlist the best cars for you.
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
+        <div className="mt-14 grid gap-7 md:grid-cols-2">
           <div>
             <label className="mb-3 block text-sm font-semibold text-slate-700">
               Budget (Lakhs)
@@ -267,7 +267,7 @@ function PreferenceForm() {
         <button
           onClick={handleSubmit}
           disabled={loading}
-          className="mt-10 w-full rounded-[28px] bg-linear-to-r from-blue-600 to-cyan-500 py-5 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl disabled:opacity-60"
+          className="mt-12 w-full rounded-[28px] bg-linear-to-r from-blue-600 to-cyan-500 py-5 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl disabled:opacity-60"
         >
           {loading ? 'Finding Your Perfect Car...' : 'Find My Perfect Car →'}
         </button>

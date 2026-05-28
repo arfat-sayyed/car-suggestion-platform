@@ -3,12 +3,13 @@ const recommendationService = require('./recommendation.service');
 const getRecommendations = (req, res, next) => {
   const { budget } = req.body;
 
-  if (!budget) {
+  if (!budget || Number(budget) <= 0) {
     return res.status(400).json({
       success: false,
-      message: 'Budget is required',
+      message: 'Valid budget is required',
     });
   }
+
   return recommendationService
     .getRecommendations(req.body)
     .then((cars) => {

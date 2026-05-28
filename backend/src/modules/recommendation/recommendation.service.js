@@ -13,7 +13,7 @@ const getRecommendations = (payload) => {
 
   return Car.find({
     'price.exShowroom': {
-      $lte: budget + 3,
+      $lte: budget < 10 ? budget : budget + 3,
     },
   })
     .lean()
@@ -51,7 +51,7 @@ const getRecommendations = (payload) => {
         }
 
         // Family size
-        if (car.specifications.seatingCapacity >= familySize) {
+        if (familySize && car.specifications.seatingCapacity >= familySize) {
           score += 15;
 
           matchReason.push('Suitable for family size');
@@ -79,6 +79,12 @@ const getRecommendations = (payload) => {
           score += 10;
 
           matchReason.push('Fuel efficient');
+        }
+
+        if (priorities.includes('features') && car.features.length) {
+          score += 10;
+
+          matchReason.push('Feature rich car');
         }
 
         return {
@@ -116,7 +122,7 @@ const getRecommendations = (payload) => {
       });
 
       return scoredCars
-        .filter((car) => car.score >= 40)
+        .filter((car) => car.score >= 20)
         .sort((a, b) => b.score - a.score)
         .slice(0, 5);
     })

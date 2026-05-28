@@ -3,7 +3,7 @@ const preferencesMeta = {
 
   transmissions: ['Manual', 'Automatic'],
 
-  bodyTypes: ['SUV', 'Sedan', 'Compact SUV', 'Hatchback', 'MPV', 'EV'],
+  bodyTypes: ['Hatchback', 'Sedan', 'Compact SUV', 'SUV', 'MPV', 'EV'],
 
   usageTypes: ['city', 'family', 'highway', 'offroad'],
 

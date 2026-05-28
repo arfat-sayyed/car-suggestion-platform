@@ -1,23 +1,16 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const connectDB = async (mongoUri) => {
   try {
     if (!mongoUri) {
-      console.log(
-        "Mongo URI not found. Starting server without DB."
-      );
-
-      return;
+      throw new Error('Mongo URI not found');
     }
 
     await mongoose.connect(mongoUri);
 
-    console.log("MongoDB connected");
+    console.log('MongoDB connected');
   } catch (error) {
-    console.error(
-      "MongoDB connection failed",
-      error.message
-    );
+    console.error('MongoDB connection failed', error.message);
 
     process.exit(1);
   }

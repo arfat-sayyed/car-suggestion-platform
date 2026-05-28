@@ -19,39 +19,75 @@ https://car-suggestion-platform-production.up.railway.app/
 
 ******************************************************************************
 
-🚀 Running Locally
-1. Clone Repository
+## 🚀 Running Locally
+
+### 1. Clone Repository
+
+```bash
 git clone https://github.com/arfat-sayyed/car-suggestion-platform.git
 cd car-suggestion-platform
-2. Add Environment Variables
-backend/.env
+```
 
+### 2. Add Environment Variables
+
+#### `backend/.env`
+
+```env
 PORT=5001
 NODE_ENV=development
 MONGO_URI=your_mongodb_connection_string
 CLIENT_URL=http://localhost:5173
+```
 
-frontend/.env
+#### `frontend/.env`
+
+```env
 VITE_API_BASE_URL=http://localhost:5001/api/v1
-3. Install & Run
-npm install
+```
+
+### 3. Install & Run
+
+```bash
 npm run dev
+```
 
-This single command will:
+This command will:
 
-Install frontend dependencies
-Install backend dependencies
-Start frontend
-Start backend
-4. Open App
+* Install backend dependencies
+* Install frontend dependencies
+* Start backend server
+* Start frontend app
+
+### 4. Seed Cars Data
+
+Populate MongoDB with sample cars:
+
+```bash
+cd backend
+npm run seed:cars
+```
+
+Expected output:
+
+```bash
+MongoDB connected
+Cars seeded successfully
+```
+
+### 5. Open App
 
 Frontend:
 
+```txt
 http://localhost:5173
+```
 
 Backend Health API:
 
+```txt
 http://localhost:5001/api/v1/health
+```
+
 
 ******************************************************************************
 
