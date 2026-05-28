@@ -83,7 +83,7 @@ function PreferenceForm() {
       .then((response) => {
         navigate('/results', {
           state: {
-            cars: response.data,
+            cars: response.data.data,
           },
         });
       })

@@ -31,7 +31,7 @@ function RecommendationCard({ car }) {
         </div>
 
         <div className="mt-5 flex flex-wrap gap-4 text-sm text-slate-700">
-          <span>💰 ₹{(car.price / 100000).toFixed(1)}L</span>
+          <span>💰 ₹{(car.price)}L</span>
 
           <span>⛽ {car.mileage}</span>
 
