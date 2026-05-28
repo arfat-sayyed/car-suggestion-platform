@@ -66,9 +66,18 @@ function PreferenceForm() {
     if (loading) {
       return;
     }
-    if (!formData.budget || Number(formData.budget) <= 0) {
+    if (!formData.budget) {
       alert('Please enter budget');
+      return;
+    }
 
+    if (!formData.usage) {
+      alert('Please select primary usage');
+      return;
+    }
+
+    if (!formData.familySize) {
+      alert('Please enter family size');
       return;
     }
     setLoading(true);
@@ -106,7 +115,7 @@ function PreferenceForm() {
       <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[40px] border border-white/30 bg-white/75 p-10 shadow-[0_20px_80px_rgba(15,23,42,0.12)] backdrop-blur-xl">
         <div className="text-center">
           <div className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50/80 px-5 py-2 text-sm font-semibold text-blue-700 shadow-sm">
-           🚗 Smart Car Recommendation Platform
+            🚗 Smart Car Recommendation Platform
           </div>
 
           <h2 className="mt-6 text-5xl font-black tracking-tight text-slate-900 md:text-6xl">
@@ -127,6 +136,7 @@ function PreferenceForm() {
           <div>
             <label className="mb-3 block text-sm font-semibold text-slate-700">
               Budget (Lakhs)
+              <span className="ml-1 text-red-500">*</span>
             </label>
 
             <input
@@ -205,6 +215,7 @@ function PreferenceForm() {
           <div>
             <label className="mb-3 block text-sm font-semibold text-slate-700">
               Family Size
+              <span className="ml-1 text-red-500">*</span>
             </label>
 
             <input
@@ -221,6 +232,7 @@ function PreferenceForm() {
         <div className="mt-10">
           <label className="mb-4 block text-sm font-semibold text-slate-700">
             Primary Usage
+            <span className="ml-1 text-red-500">*</span>
           </label>
 
           <div className="flex flex-wrap gap-3">

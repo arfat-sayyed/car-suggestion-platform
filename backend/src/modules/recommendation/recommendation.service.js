@@ -13,27 +13,41 @@ const getRecommendations = (payload) => {
 
   return Car.find({
     'price.exShowroom': {
-      $lte: budget < 10 ? budget : budget + 3,
+      $gte: Math.max(5, budget - 15),
+      $lte: budget + 5,
     },
   })
     .lean()
     .then((cars) => {
-      const scoredCars = cars.map((car) => {
+      let filteredCars = cars;
+
+      if (bodyType) {
+        filteredCars = filteredCars.filter((car) => car.bodyType === bodyType);
+      }
+
+      const scoredCars = filteredCars.map((car) => {
         let score = 0;
 
         const matchReason = [];
 
         // Budget
+        // Budget relevance
+        const priceDifference = Math.abs(budget - car.price.exShowroom);
+
         if (car.price.exShowroom <= budget) {
-          score += 30;
+          if (priceDifference <= 3) {
+            score += 35;
 
-          matchReason.push('Fits your budget');
-        }
+            matchReason.push('Perfect budget match');
+          } else if (priceDifference <= 8) {
+            score += 25;
 
-        if (bodyType && car.bodyType === bodyType) {
-          score += 15;
+            matchReason.push('Good budget fit');
+          } else if (priceDifference <= 15) {
+            score += 10;
 
-          matchReason.push(`${bodyType} preference matched`);
+            matchReason.push('Within your budget');
+          }
         }
 
         // Fuel
